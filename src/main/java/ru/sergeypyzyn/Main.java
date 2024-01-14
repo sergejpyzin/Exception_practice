@@ -13,7 +13,6 @@ import ru.sergeypyzyn.repositories.OrderRepository;
 import ru.sergeypyzyn.repositories.ProductRepository;
 
 
-
 public class Main {
     public static void main(String[] args) {
         Shop shop = new Shop();
@@ -51,19 +50,26 @@ public class Main {
                     productRepository.getProducts().get(3), 5));
             orderRepository.addOrder(shop.creatingAnOrder(customerRepository.getCustomers().get(1),
                     productRepository.getProducts().get(4), 5));
-            /*orderRepository.addOrder(shop.creatingAnOrder(new Customer("Sergey", "7777", 42, Gender.MALE),
-                    productRepository.getProducts().get(0), 6));*/
-            /*orderRepository.addOrder(shop.creatingAnOrder(customerRepository.getCustomers().get(0),
-                    new Product("Ball", 666.35), 6));*/
+            orderRepository.addOrder(shop.creatingAnOrder(new Customer("Sergey", "7777", 42, Gender.MALE),
+                    productRepository.getProducts().get(0), 6));
+            orderRepository.addOrder(shop.creatingAnOrder(customerRepository.getCustomers().get(0),
+                    new Product("Ball", 666.35), 6));
             orderRepository.addOrder(shop.creatingAnOrder(customerRepository.getCustomers().get(0),
                     productRepository.getProducts().get(0), 0));
-        } catch (CustomerException | ProductException | AmountException e){
+        } catch (CustomerException | ProductException | AmountException e) {
             e.printStackTrace();
         }
 
         System.out.println(orderRepository);
+        try {
+            shop.congratulation(customerRepository, HolidayDate.NEW_YEAR);
+            shop.congratulationForTest(customerRepository, HolidayDate.DEFENDER_OF_FATHERLAND_DAY, "2024-02-23");
 
-        shop.congratulation(customerRepository, HolidayDate.NEW_YEAR);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        shop.countOrders(orderRepository);
 
     }
 }

@@ -1,8 +1,6 @@
 package ru.sergeypyzyn.enums;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Value;
 
 import java.time.LocalDate;
 

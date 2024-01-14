@@ -16,6 +16,7 @@ import ru.sergeypyzyn.repositories.OrderRepository;
 import ru.sergeypyzyn.repositories.ProductRepository;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -55,59 +56,41 @@ public class Shop {
     }
 
     public void congratulation(CustomerRepository customerRepository, HolidayDate holidayDate) {
+        List<Customer> customers = customerRepository.getCustomers();
+        LocalDate localDate = LocalDate.now();
+        bodyOfCongratulations(holidayDate, customers, localDate);
+    }
+
+    public void congratulationForTest(CustomerRepository customerRepository, HolidayDate holidayDate, String nowDate) {
+        List<Customer> customers = customerRepository.getCustomers();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(nowDate, dateTimeFormatter);
+        bodyOfCongratulations(holidayDate, customers, localDate);
+    }
+
+    private void bodyOfCongratulations(HolidayDate holidayDate, List<Customer> customers, LocalDate localDate) {
         if (customerRepository == null) {
             throw new NullPointerException();
         }
+        LocalDate holidayInYear = holidayDate.getDate().withYear(localDate.getYear());
 
-        List<Customer> customers = customerRepository.getCustomers();
-        LocalDate localDate = LocalDate.now();
-
-        switch (holidayDate) {
-            case NEW_YEAR -> {
-                LocalDate newYearDate = LocalDate.of((localDate.getYear()), 1, 1);
-                if (localDate.equals(newYearDate)) {
-                    System.out.println("С НОВЫМ ГОДОМ ДОРОГОЙ ПОКУПАТЕЛЬ!");
-                } else {
-                    System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
-                }
+        if (localDate.equals(holidayInYear)) {
+            switch (holidayDate) {
+                case NEW_YEAR -> System.out.println("С НОВЫМ ГОДОМ ДОРОГОЙ ПОКУПАТЕЛЬ!");
+                case DEFENDER_OF_FATHERLAND_DAY -> customers.stream()
+                        .filter(customer -> customer.getGender() == Gender.MALE)
+                        .forEach(customer -> System.out.println(
+                                customer.getCustomerName() + " ПОЗДРАВЛЯЕМ С ДНЕМ ЗАЩИТНИКА ОТЕЧЕСТВА!"
+                        ));
+                case INTERNATIONAL_WOMAN_DAY -> customers.stream()
+                        .filter(customer -> customer.getGender() == Gender.FEMALE)
+                        .forEach(customer -> System.out.println(
+                                customer.getCustomerName() + " ПОЗДРАВЛЯЕМ С МЕЖДУНАРОДНЫМ ЖЕНСКИМ ДНЕМ!"
+                        ));
+                case SPRING_AND_LABOR_DAY -> System.out.println("ПОЗДРАВЛЯЕМ С ДНЕМ ВЕСНЫ И ТРУДА!");
+                case VICTORY_DAY -> System.out.println("ПОЗДРАВЛЯЕМ С ДНЕМ ПОБЕДЫ!");
+                default -> System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
             }
-            case DEFENDER_OF_FATHERLAND_DAY -> {
-                LocalDate defenderOfFatherlandDayDate = LocalDate.of(localDate.getYear(), 2, 23);
-                if (localDate.equals(defenderOfFatherlandDayDate)) {
-                    customers.stream()
-                            .filter(customer -> customer.getGender() == Gender.MALE)
-                            .forEach(customer -> System.out.println("ПОЗДРАВЛЯЕМ С ДНЕМ ЗАЩИТНИКА ОТЕЧЕСТВА!"));
-                }else {
-                    System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
-                }
-            }
-            case INTERNATIONAL_WOMAN_DAY -> {
-                LocalDate internationalWomanDayDate = LocalDate.of(localDate.getYear(), 3, 8);
-                if (localDate.equals(internationalWomanDayDate)) {
-                    customers.stream()
-                            .filter(customer -> customer.getGender() == Gender.FEMALE)
-                            .forEach(customer -> System.out.println("ПОЗДРАВЛЯЕМ С МЕЖДУНАРОДНЫМ ЖЕНСКИЙ ДНЕМ!"));
-                }else {
-                    System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
-                }
-            }
-            case SPRING_AND_LABOR_DAY -> {
-                LocalDate springAndLaborDayDate = LocalDate.of(localDate.getYear(), 5, 1);
-                if (localDate.equals(springAndLaborDayDate)) {
-                    System.out.println("ПОЗДРАВЛЯЕМ С ДНЕМ ВЕСНЫ И ТРУДА!");
-                }else {
-                    System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
-                }
-            }
-            case VICTORY_DAY -> {
-                LocalDate victoryDayDate = LocalDate.of(localDate.getYear(), 5, 9);
-                if (localDate.equals(victoryDayDate)) {
-                    System.out.println("ПОЗДРАВЛЯЕМ С ДНЕМ ПОБЕДЫ!");
-                }else {
-                    System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
-                }
-            }
-            default -> System.out.println("СЕГОДНЯ НЕТ ПРАЗДНИКА!");
         }
     }
 
