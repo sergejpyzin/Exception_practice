@@ -1,7 +1,12 @@
 package ru.sergeypyzyn.enums;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Value;
+
 import java.time.LocalDate;
 
+@Getter
 public enum HolidayDate {
 
     NEW_YEAR (LocalDate.of(2024, 1, 1)),
@@ -15,5 +20,7 @@ public enum HolidayDate {
     HolidayDate(LocalDate date){
         this.date = date;
     }
+
+
 
 }
