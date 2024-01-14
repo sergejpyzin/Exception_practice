@@ -2,7 +2,6 @@ package ru.sergeypyzyn.repositories;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ru.sergeypyzyn.models.Product;
 
 import java.util.ArrayList;

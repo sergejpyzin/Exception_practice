@@ -1,8 +1,5 @@
 package ru.sergeypyzyn.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 public class ProductException extends RuntimeException{
 
     @Override

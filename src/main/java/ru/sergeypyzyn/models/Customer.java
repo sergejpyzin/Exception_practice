@@ -2,7 +2,7 @@ package ru.sergeypyzyn.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.sergeypyzyn.Gender;
+import ru.sergeypyzyn.enums.Gender;
 
 @Data
 @AllArgsConstructor

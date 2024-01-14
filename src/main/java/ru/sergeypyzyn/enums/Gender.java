@@ -1,4 +1,4 @@
-package ru.sergeypyzyn;
+package ru.sergeypyzyn.enums;
 
 import lombok.*;
 
@@ -18,6 +18,6 @@ public enum Gender {
 
     @Override
     public String toString() {
-        return String.format("Пол: %s", title);
+        return String.format(" %s", title);
     }
 }

@@ -20,4 +20,9 @@ public class Order {
         this.value = value;
         this.date = LocalDate.now();
     }
+
+    @Override
+    public String toString() {
+        return String.format("Сформирован заказ: Покупатель - %s, Товар - %s, Кол-во - %d, Дата заказа - %s\n", this.customer, this.product, this.value, this.date);
+    }
 }
