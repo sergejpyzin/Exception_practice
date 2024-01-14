@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class OrderRepository {
 
     private List<Order> orders;
+
+    public OrderRepository (){
+        this.orders = new ArrayList<>();
+    }
 
     public List<Order> getAllOrders (){
         return new ArrayList<>(orders);
@@ -26,4 +29,6 @@ public class OrderRepository {
     public void removeOrder (Order order){
         orders.remove(order);
     }
+
+
 }

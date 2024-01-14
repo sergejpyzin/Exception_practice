@@ -10,10 +10,13 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProductRepository {
 
     private List<Product> products;
+
+    public ProductRepository(){
+        this.products = new ArrayList<>();
+    }
 
     public List<Product> getAllProduct (){
         return new ArrayList<>(products);
@@ -26,4 +29,5 @@ public class ProductRepository {
     public void removeProduct (Product product){
         products.remove(product);
     }
+
 }
